@@ -1,0 +1,3 @@
+model_comparison_params:
+    metric: 'roc_auc_score'
+    higher_is_better: True

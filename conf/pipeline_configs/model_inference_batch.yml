@@ -1,0 +1,10 @@
+mlflow_params:
+  model_registry_stage: 'production'
+
+data_input:
+  # Require DataFrame to score the model on - must contain column(s) for lookup keys
+  # to join feature data from Feature Store
+  table_name: 'e2e_mlops_ado_dev.churn_labels'
+
+data_output:
+  mode: 'overwrite'
