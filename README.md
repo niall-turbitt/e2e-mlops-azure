@@ -59,7 +59,7 @@ The following outlines the workflow to demo the repo.
         - Delete Model in MLflow Model Registry if exists.
     
     **NOTE:** As part of the `initial-model-train-register` multitask job, the first task `demo-setup` will delete these, 
-   as specified in [`demo_setup.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/job_configs/demo_setup.yml).
+   as specified in [`demo_setup.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/pipeline_configs/demo_setup.yml).
 
 ### Workflow
 
@@ -85,7 +85,7 @@ The following outlines the workflow to demo the repo.
            you may want to consider using a [Databricks pool](https://docs.databricks.com/clusters/instance-pools/index.html), 
            and specify this pool ID in [`conf/deployment.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/deployment.yml).
     - `telco-churn-initial-model-train-register` tasks:
-        1. Demo setup task steps ([`demo-setup`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/telco_churn/jobs/demo_setup_job.py))
+        1. Demo setup task steps ([`demo-setup`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/telco_churn/pipelines/demo_setup_job.py))
             1. Delete Model Registry model if exists (archive any existing models).
             1. Delete MLflow experiment if exists.
             1. Delete Feature Table if exists.
@@ -103,8 +103,8 @@ The following outlines the workflow to demo the repo.
 
     - Create new “dev/new_model” branch 
         - `git checkout -b  dev/new_model`
-    - Make a change to the [`model_train.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/job_configs/model_train.yml) config file, updating `max_depth` under model_params from 4 to 8
-        - Optional: change run name under mlflow params in [`model_train.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/job_configs/model_train.yml) config file
+    - Make a change to the [`model_train.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/pipeline_configs/model_train.yml) config file, updating `max_depth` under model_params from 4 to 8
+        - Optional: change run name under mlflow params in [`model_train.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/pipeline_configs/model_train.yml) config file
     - Create pull request, to merge the branch dev/new_model into main
 
 * On pull request the following steps are triggered in Azure DevOps pipelines:
@@ -156,7 +156,7 @@ The following outlines the workflow to demo the repo.
     
     - Model deployment job steps  (`PROD-telco-churn-model-deployment`)
         1. Compare new “candidate model” in `stage='Staging'` versus current Production model in `stage='Production'`.
-        1. Comparison criteria set through [`model_deployment.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/job_configs/model_deployment.yml)
+        1. Comparison criteria set through [`model_deployment.yml`](https://github.com/niall-turbitt/e2e-mlops-azure/blob/main/conf/pipeline_configs/model_deployment.yml)
             1. Compute predictions using both models against a specified reference dataset
             1. If Staging model performs better than Production model, promote Staging model to Production and archive existing Production model
             1. If Staging model performs worse than Production model, archive Staging model
